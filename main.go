@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	_"fmt"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -21,7 +21,7 @@ func main() {
 	defer rl.CloseWindow()
 	//rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(screenWidth, screenHeight, "DEBi")
-	rl.SetTargetFPS(60)
+	rl.SetTargetFPS(1000)
 	rl.ClearBackground(rl.DarkGray)
 
 	//Draw startup message on screen
@@ -75,22 +75,14 @@ func inputHandler() {
 func mouseInputHandler() {
 	// set to one input at a time only
 	if rl.IsMouseButtonDown(rl.MouseButtonLeft) {
-		rl.DrawPixelV(rl.GetMousePosition(), penColor)
-		if prePos.X != 0 && prePos.Y != 0 {
-			rl.DrawLineV(prePos, rl.GetMousePosition(), penColor)
-			fmt.Println(prePos)
-		}
-		prePos = rl.GetMousePosition()
-	}
+		rl.DrawCircleV(rl.GetMousePosition(), 10, penColor)
 
-	if rl.IsMouseButtonReleased(rl.MouseButtonLeft) {
-
-		prePos.X = 0
-		prePos.Y = 0
 	}
 
 	if rl.IsMouseButtonDown(rl.MouseButtonRight) {
-		fmt.Println("right button pressed")
+		rl.DrawCircleV(rl.GetMousePosition(), 10, rl.DarkGray)
+
+		prePos = rl.GetMousePosition()
 
 	}
 }
