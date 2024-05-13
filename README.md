@@ -1,1 +1,1 @@
-Simple drawing board application made with golang and raylib bindings. 
+Fast loading and easy to use drawing board application. Built with raylib bindings for GO.
