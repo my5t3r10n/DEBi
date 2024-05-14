@@ -1,7 +1,7 @@
 package main
 
 import (
-	_"fmt"
+	_ "fmt"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -19,20 +19,25 @@ func main() {
 	penColor = rl.Purple
 	penScale = 3
 	defer rl.CloseWindow()
+
 	//rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(screenWidth, screenHeight, "DEBi")
-	rl.SetTargetFPS(1000)
+	canvas := rl.LoadRenderTexture(screenWidth, screenHeight)
+	rl.BeginTextureMode(canvas)
 	rl.ClearBackground(rl.DarkGray)
+	rl.EndTextureMode()
 
-	//Draw startup message on screen
-	//When user input starts remove text
+	rl.SetTargetFPS(240)
 
 	for !rl.WindowShouldClose() {
-		inputHandler()
-		mouseInputHandler()
 		rl.BeginDrawing()
+
 		displayStartupMessage(isStartup)
+		inputHandler()
+		mouseInputHandler(canvas)
+		rl.ClearBackground(rl.DarkGray)
 		rl.EndDrawing()
+
 	}
 }
 
@@ -70,20 +75,24 @@ func inputHandler() {
 	if rl.IsKeyPressed(rl.KeyD) {
 		penColor = rl.Purple
 	}
+	if rl.IsKeyPressed(rl.KeyF) {
+		penColor = rl.Green
+	}
 }
 
-func mouseInputHandler() {
+func mouseInputHandler(c rl.RenderTexture2D) {
 	// set to one input at a time only
 	if rl.IsMouseButtonDown(rl.MouseButtonLeft) {
+		rl.BeginTextureMode(c)
 		rl.DrawCircleV(rl.GetMousePosition(), 10, penColor)
-
+		rl.EndTextureMode()
 	}
 
 	if rl.IsMouseButtonDown(rl.MouseButtonRight) {
+		rl.BeginTextureMode(c)
 		rl.DrawCircleV(rl.GetMousePosition(), 10, rl.DarkGray)
-
 		prePos = rl.GetMousePosition()
-
+		rl.EndTextureMode()
 	}
 }
 
