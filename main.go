@@ -70,6 +70,9 @@ func inputHandler() {
 	if rl.IsKeyPressed(rl.KeyD) {
 		penColor = rl.Purple
 	}
+	if rl.IsKeyPressed(rl.KeyF) {
+		penColor = rl.Green
+	}
 }
 
 func mouseInputHandler() {
